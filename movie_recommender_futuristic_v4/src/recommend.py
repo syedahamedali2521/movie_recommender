@@ -1,27 +1,31 @@
 import pandas as pd
 from sklearn.metrics.pairwise import cosine_similarity
 
-def recommend_movie(selected_title, n=5):
-    # Load data
-    movies = pd.read_csv("data/movies.csv")
-    ratings = pd.read_csv("data/ratings.csv")
+def recommend_movie(selected_movie, movies, ratings, top_n=6):
+    """
+    Recommends movies similar to the selected movie based on user ratings.
+    """
 
-    # Create user–movie matrix
-    matrix = ratings.pivot_table(index='userId', columns='movieId', values='rating').fillna(0)
+    # Merge ratings with movies
+    movie_data = ratings.merge(movies, on='movieId')
 
-    # Compute similarity between movies
-    similarity = cosine_similarity(matrix.T)
-    sim_df = pd.DataFrame(similarity, index=matrix.columns, columns=matrix.columns)
+    # Create pivot table: users as rows, movies as columns
+    user_movie_matrix = movie_data.pivot_table(index='userId', columns='title', values='rating')
 
-    # Get selected movieId
-    try:
-        movie_id = movies.loc[movies['title'] == selected_title, 'movieId'].values[0]
-    except IndexError:
-        return pd.DataFrame()
+    # Fill missing ratings with 0
+    user_movie_matrix = user_movie_matrix.fillna(0)
 
-    # Find similar movies
-    similar_scores = sim_df[movie_id].sort_values(ascending=False).iloc[1:n+1]
-    recommended_ids = similar_scores.index
-    recommendations = movies[movies['movieId'].isin(recommended_ids)]
+    # Compute similarity matrix
+    similarity_matrix = cosine_similarity(user_movie_matrix.T)
+    similarity_df = pd.DataFrame(similarity_matrix, index=user_movie_matrix.columns, columns=user_movie_matrix.columns)
 
-    return recommendations[['title', 'genres']]
+    # Handle invalid movie name
+    if selected_movie not in similarity_df.columns:
+        return pd.DataFrame(columns=['movieId', 'title', 'genres'])
+
+    # Get similar movies
+    similar_movies = similarity_df[selected_movie].sort_values(ascending=False)[1:top_n+1].index
+
+    # Return movie info
+    recommendations = movies[movies['title'].isin(similar_movies)][['movieId', 'title', 'genres']]
+    return recommendations

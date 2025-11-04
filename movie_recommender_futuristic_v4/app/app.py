@@ -1,11 +1,11 @@
 import streamlit as st
 import pandas as pd
-import sys
 import os
+import sys
 
-# ----------------------------
-# ✅ Dynamic Path Fix
-# ----------------------------
+# ==========================================================
+# ✅ Dynamic Path Fix (Works on Streamlit Cloud & Local)
+# ==========================================================
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 if project_root not in sys.path:
     sys.path.append(project_root)
@@ -13,162 +13,143 @@ if project_root not in sys.path:
 try:
     from src.recommend import recommend_movie
 except ModuleNotFoundError as e:
-    st.error("❌ Could not import 'src.recommend'. Check your project structure and dependencies.")
+    st.error("❌ Could not import 'src.recommend'. Make sure the folder structure is correct and recommend.py exists.")
     st.stop()
 
-
-
-# ------------------------------------------------
+# ==========================================================
 # ⚙️ Streamlit Page Configuration
-# ------------------------------------------------
+# ==========================================================
 st.set_page_config(
-    page_title="AI Movie Recommender",
-    page_icon="🎬",
+    page_title="🎬 AI Movie Recommendation System",
+    page_icon="🎥",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# ------------------------------------------------
-# 🎨 BLACK NEON THEME (FULL BACKGROUND FIX)
-# ------------------------------------------------
+# ==========================================================
+# 🎨 Custom CSS (Dark Futuristic Theme)
+# ==========================================================
 st.markdown("""
 <style>
-/* 🌌 Global dark theme */
-html, body, [data-testid="stAppViewContainer"], [data-testid="stAppViewBlockContainer"] {
-    background-color: #000000 !important;
-    color: #ffffff !important;
-}
+    /* General background */
+    .stApp {
+        background-color: #000000;
+        background-image: radial-gradient(circle at top left, #00ffff20, #000000 80%);
+        color: #00ffff;
+        font-family: 'Poppins', sans-serif;
+    }
 
-[data-testid="stHeader"] {
-    background: rgba(0, 0, 0, 0);
-    color: white;
-}
+    /* Header Text */
+    h1, h2, h3, h4 {
+        color: #00e0ff;
+        text-shadow: 0px 0px 20px #00e0ff;
+        font-weight: 700;
+    }
 
-/* Sidebar */
-[data-testid="stSidebar"] {
-    background-color: #0a0a0a !important;
-    border-right: 1px solid rgba(0, 255, 255, 0.2);
-}
+    /* Streamlit widgets */
+    .stSelectbox label, .stSlider label, .stNumberInput label {
+        color: #00e0ff !important;
+        font-weight: bold;
+    }
 
-/* Text */
-h1, h2, h3, h4, h5, h6, p, span, label {
-    color: #ffffff !important;
-    font-family: 'Poppins', sans-serif;
-}
+    /* Buttons */
+    div.stButton > button {
+        background: linear-gradient(90deg, #00ffff, #0077ff);
+        color: black;
+        border: none;
+        border-radius: 10px;
+        font-weight: 600;
+        transition: all 0.3s ease-in-out;
+        box-shadow: 0 0 10px #00ffff;
+    }
+    div.stButton > button:hover {
+        transform: scale(1.08);
+        box-shadow: 0 0 30px #00ffff;
+    }
 
-/* Titles */
-h1 {
-    color: #00ffff !important;
-    text-shadow: 0 0 25px #00ffff;
-    text-align: center;
-    font-size: 3em;
-    margin-top: 10px;
-}
-h2 {
-    color: #00ffff !important;
-    text-shadow: 0 0 15px #00ffff;
-    text-align: center;
-    margin-top: 30px;
-}
+    /* Movie Cards */
+    .movie-card {
+        background-color: rgba(0, 0, 0, 0.85);
+        border: 2px solid #00ffff;
+        border-radius: 15px;
+        padding: 15px;
+        margin: 10px;
+        text-align: center;
+        color: #00ffff;
+        box-shadow: 0px 0px 20px #00ffff60;
+        transition: 0.3s;
+    }
+    .movie-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0px 0px 40px #00ffff;
+    }
 
-/* Buttons */
-.stButton>button {
-    background: linear-gradient(90deg, #00ffff, #ff00ff);
-    color: white;
-    border: none;
-    border-radius: 12px;
-    padding: 0.6rem 1.2rem;
-    transition: 0.3s;
-    font-size: 1rem;
-    box-shadow: 0 0 10px #00ffff80;
-}
-.stButton>button:hover {
-    transform: scale(1.08);
-    box-shadow: 0 0 25px #ff00ff;
-}
-
-/* Movie Cards */
-.movie-card {
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 18px;
-    padding: 1rem;
-    margin: 1rem;
-    text-align: center;
-    transition: all 0.3s ease;
-    box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
-}
-.movie-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 0 30px #00ffff;
-}
-
-/* Divider and footer */
-hr {
-    border: 1px solid rgba(255,255,255,0.1);
-}
-footer, .css-164nlkn, .css-1q1n0ol {
-    background: transparent !important;
-}
+    /* Footer */
+    footer {visibility: hidden;}
 </style>
 """, unsafe_allow_html=True)
 
-# ------------------------------------------------
-# 🎬 HEADER
-# ------------------------------------------------
-st.markdown("<h1>🎥 AI Movie Recommendation System</h1>", unsafe_allow_html=True)
-st.write("### Experience futuristic AI-powered movie suggestions 🔮")
+# ==========================================================
+# 🎬 Load Movie & Rating Data
+# ==========================================================
+movies_path = os.path.join(project_root, "data", "movies.csv")
+ratings_path = os.path.join(project_root, "data", "ratings.csv")
 
-# ------------------------------------------------
-# 📂 Load Movie Data
-# ------------------------------------------------
-movies_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'movies.csv')
+if not os.path.exists(movies_path) or not os.path.exists(ratings_path):
+    st.error("⚠️ Missing dataset! Please ensure 'data/movies.csv' and 'data/ratings.csv' exist.")
+    st.stop()
 
-if not os.path.exists(movies_path):
-    st.error("⚠️ movies.csv not found in /data folder. Please ensure it's there.")
-else:
-    movies_df = pd.read_csv(movies_path)
+movies = pd.read_csv(movies_path)
+ratings = pd.read_csv(ratings_path)
 
-# ------------------------------------------------
-# 🎛️ Sidebar Controls
-# ------------------------------------------------
-st.sidebar.header("🎬 Choose a Movie")
+# ==========================================================
+# 🧠 App Header
+# ==========================================================
+st.markdown("<h1 style='text-align:center;'>🤖 AI Movie Recommendation System</h1>", unsafe_allow_html=True)
+st.markdown("<h3 style='text-align:center;'>🎞 Experience futuristic AI-powered movie suggestions 🎬</h3>", unsafe_allow_html=True)
+st.markdown("<hr>", unsafe_allow_html=True)
 
-if 'title' in movies_df.columns:
-    selected_movie = st.sidebar.selectbox(
-        "Select a movie you like:",
-        movies_df['title'].values
-    )
+# ==========================================================
+# 🎞 Sidebar Controls
+# ==========================================================
+with st.sidebar:
+    st.header("🎥 Choose a Movie")
+    selected_movie = st.selectbox("Select the movie you like 👇", movies['title'].values)
+    top_n = st.slider("Number of recommendations:", 3, 10, 5)
+    recommend_btn = st.button("🚀 Recommend")
 
-    n_recommendations = st.sidebar.slider("Number of recommendations", 3, 10, 5)
-
-    if st.sidebar.button("🚀 Recommend"):
-        st.markdown("<h2>✨ Top Recommended Movies ✨</h2>", unsafe_allow_html=True)
-
+# ==========================================================
+# 💡 Main Recommendation Section
+# ==========================================================
+if recommend_btn:
+    with st.spinner("🎯 Finding the best movie matches for you..."):
         try:
-            recommendations = recommend_movie(selected_movie, n_recommendations)
-
-            if isinstance(recommendations, pd.DataFrame) and not recommendations.empty:
-                cols = st.columns(3)
-                for idx, row in enumerate(recommendations.itertuples(), start=1):
-                    with cols[(idx - 1) % 3]:
-                        st.markdown(f"""
-                        <div class='movie-card'>
-                            <h3>{row.title}</h3>
-                            <p style='color:#aaa;'>{row.genres}</p>
-                        </div>
-                        """, unsafe_allow_html=True)
+            recommendations = recommend_movie(selected_movie, movies, ratings, top_n=top_n)
+            if recommendations.empty:
+                st.warning("⚠️ No similar movies found! Try another title.")
             else:
-                st.warning("No recommendations found for this movie.")
-        except Exception as e:
-            st.error(f"Error: {e}")
-else:
-    st.error("Invalid movie dataset structure. Ensure 'title' column exists in movies.csv")
+                st.subheader("✨ Your Top Recommended Movies ✨")
 
-# ------------------------------------------------
-# 🪩 FOOTER
-# ------------------------------------------------
-st.markdown("""
-<hr>
-<p style='text-align:center; color:#888;'>Built by ❤️ Syed Ahamed Ali| © 2025 Futuristic Labs</p>
-""", unsafe_allow_html=True)
+                cols = st.columns(3)
+                for i, (_, row) in enumerate(recommendations.iterrows()):
+                    with cols[i % 3]:
+                        st.markdown(
+                            f"""
+                            <div class='movie-card'>
+                                <h4>{row['title']}</h4>
+                                <p>{row['genres']}</p>
+                            </div>
+                            """,
+                            unsafe_allow_html=True
+                        )
+        except Exception as e:
+            st.error(f"❌ Error while generating recommendations: {e}")
+
+# ==========================================================
+# 💬 Footer
+# ==========================================================
+st.markdown("<hr>", unsafe_allow_html=True)
+st.markdown(
+    "<p style='text-align:center; color:gray;'>Built by ❤️ Syed Ahamed Ali| © 2025 AIML Project</p>",
+    unsafe_allow_html=True
+)

@@ -1,0 +1,101 @@
+movieId,title,genres
+1,Star Wars: A New Hope (1977),Action|Adventure|Sci-Fi
+2,Star Wars: The Empire Strikes Back (1980),Action|Adventure|Sci-Fi
+3,Star Wars: Return of the Jedi (1983),Action|Adventure|Sci-Fi
+4,Avengers: Endgame (2019),Action|Adventure|Sci-Fi
+5,Avatar (2009),Action|Adventure|Fantasy|Sci-Fi
+6,Inception (2010),Action|Sci-Fi|Thriller
+7,Interstellar (2014),Adventure|Drama|Sci-Fi
+8,The Dark Knight (2008),Action|Crime|Drama
+9,The Batman (2022),Action|Crime|Mystery
+10,Iron Man (2008),Action|Adventure|Sci-Fi
+11,Black Panther (2018),Action|Adventure|Fantasy
+12,Doctor Strange (2016),Action|Adventure|Fantasy
+13,Spider-Man: No Way Home (2021),Action|Adventure|Fantasy
+14,The Matrix (1999),Action|Sci-Fi
+15,The Matrix Reloaded (2003),Action|Sci-Fi
+16,The Matrix Resurrections (2021),Action|Sci-Fi
+17,Jurassic Park (1993),Adventure|Sci-Fi|Thriller
+18,Jurassic World (2015),Action|Adventure|Sci-Fi
+19,Titanic (1997),Drama|Romance
+20,The Shawshank Redemption (1994),Drama
+21,Forrest Gump (1994),Drama|Romance
+22,Gladiator (2000),Action|Adventure|Drama
+23,The Godfather (1972),Crime|Drama
+24,The Godfather: Part II (1974),Crime|Drama
+25,The Lion King (1994),Animation|Adventure|Drama
+26,Toy Story (1995),Animation|Adventure|Comedy
+27,Finding Nemo (2003),Animation|Adventure|Comedy
+28,Up (2009),Animation|Adventure|Comedy
+29,Frozen (2013),Animation|Adventure|Family
+30,Encanto (2021),Animation|Comedy|Family
+31,Inside Out (2015),Animation|Comedy|Drama
+32,Moana (2016),Animation|Adventure|Family
+33,Wall-E (2008),Animation|Adventure|Sci-Fi
+34,The Incredibles (2004),Animation|Action|Adventure
+35,Minions (2015),Animation|Comedy|Family
+36,Despicable Me (2010),Animation|Comedy|Family
+37,The Hangover (2009),Comedy
+38,Superbad (2007),Comedy
+39,Step Brothers (2008),Comedy
+40,Mean Girls (2004),Comedy
+41,The Wolf of Wall Street (2013),Biography|Comedy|Crime
+42,The Social Network (2010),Biography|Drama
+43,Oppenheimer (2023),Biography|Drama|History
+44,Barbie (2023),Adventure|Comedy|Fantasy
+45,Dune (2021),Adventure|Drama|Sci-Fi
+46,Mad Max: Fury Road (2015),Action|Adventure|Sci-Fi
+47,John Wick (2014),Action|Crime|Thriller
+48,John Wick: Chapter 4 (2023),Action|Crime|Thriller
+49,Fast & Furious 7 (2015),Action|Crime|Thriller
+50,Top Gun: Maverick (2022),Action|Drama
+51,RRR (2022),Action|Drama|History
+52,Baahubali: The Beginning (2015),Action|Drama|Fantasy
+53,Baahubali: The Conclusion (2017),Action|Drama|Fantasy
+54,Pushpa: The Rise (2021),Action|Crime|Drama
+55,Kantara (2022),Action|Drama|Mystery
+56,Vikram (2022),Action|Thriller
+57,Leo (2023),Action|Thriller
+58,Jailer (2023),Action|Comedy|Thriller
+59,KGF: Chapter 1 (2018),Action|Crime|Drama
+60,KGF: Chapter 2 (2022),Action|Crime|Drama
+61,Salar (2023),Action|Thriller
+62,Ala Vaikunthapurramuloo (2020),Comedy|Drama|Romance
+63,Sarkaru Vaari Paata (2022),Action|Comedy|Drama
+64,Geetha Govindam (2018),Comedy|Romance
+65,Arjun Reddy (2017),Drama|Romance
+66,Dear Comrade (2019),Drama|Romance
+67,Maharshi (2019),Action|Drama
+68,Radhe Shyam (2022),Drama|Romance|Fantasy
+69,Bro (2023),Comedy|Drama|Fantasy
+70,Hi Nanna (2023),Drama|Romance
+71,3 Idiots (2009),Comedy|Drama
+72,PK (2014),Comedy|Drama|Sci-Fi
+73,Dangal (2016),Action|Biography|Drama
+74,Chhichhore (2019),Comedy|Drama
+75,Zindagi Na Milegi Dobara (2011),Adventure|Comedy|Drama
+76,Yeh Jawaani Hai Deewani (2013),Comedy|Drama|Romance
+77,Kal Ho Naa Ho (2003),Comedy|Drama|Romance
+78,Kabhi Khushi Kabhie Gham (2001),Comedy|Drama|Family
+79,Shershaah (2021),Action|Biography|Drama
+80,Gully Boy (2019),Drama|Music
+81,Pathaan (2023),Action|Thriller
+82,Jawan (2023),Action|Thriller
+83,War (2019),Action|Thriller
+84,Tiger 3 (2023),Action|Thriller
+85,Drishyam (2015),Crime|Drama|Thriller
+86,Drishyam 2 (2022),Crime|Drama|Thriller
+87,Andhadhun (2018),Crime|Thriller
+88,Stree (2018),Comedy|Horror
+89,Bhool Bhulaiyaa 2 (2022),Comedy|Horror
+90,Kantara 2 (2025),Action|Mystery|Thriller
+91,Luca (2021),Animation|Adventure|Comedy
+92,Coco (2017),Animation|Adventure|Family
+93,Soul (2020),Animation|Adventure|Comedy
+94,Elemental (2023),Animation|Comedy|Fantasy
+95,Kung Fu Panda (2008),Animation|Action|Comedy
+96,How to Train Your Dragon (2010),Animation|Adventure|Fantasy
+97,Shrek (2001),Animation|Adventure|Comedy
+98,Ice Age (2002),Animation|Adventure|Comedy
+99,The Super Mario Bros. Movie (2023),Animation|Adventure|Comedy
+100,Meg 2: The Trench (2023),Action|Adventure|Sci-Fi

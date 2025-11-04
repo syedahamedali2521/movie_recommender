@@ -1,17 +1,21 @@
-import sys
-import os
 import streamlit as st
 import pandas as pd
-
-# ✅ Fix import path for src/
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import sys
 import os
 
-# Ensure the src directory is in the Python path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+# ----------------------------
+# ✅ Dynamic Path Fix
+# ----------------------------
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+if project_root not in sys.path:
+    sys.path.append(project_root)
 
-from src.recommend import recommend_movie
+try:
+    from src.recommend import recommend_movie
+except ModuleNotFoundError as e:
+    st.error("❌ Could not import 'src.recommend'. Check your project structure and dependencies.")
+    st.stop()
+
 
 
 # ------------------------------------------------

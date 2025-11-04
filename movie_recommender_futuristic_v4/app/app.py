@@ -1,19 +1,18 @@
 import streamlit as st
-import pandas as pd
-import os
 import sys
+import os
 
-# ==========================================================
-# ✅ Dynamic Path Fix (Works both on Codespaces & Streamlit Cloud)
-# ==========================================================
-project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+# Find project root dynamically
+current_dir = os.path.dirname(os.path.abspath(__file__))
+project_root = os.path.abspath(os.path.join(current_dir, '..', '..', 'movie_recommender_futuristic_v4'))
+
 if project_root not in sys.path:
-    sys.path.append(project_root)
+    sys.path.insert(0, project_root)
 
 try:
     from src.recommend import recommend_movie
-except ModuleNotFoundError as e:
-    st.error("❌ Could not import 'src.recommend'. Make sure recommend.py exists in /src folder.")
+except Exception as e:
+    st.error(f"❌ Import failed: {e}")
     st.stop()
 
 # ==========================================================

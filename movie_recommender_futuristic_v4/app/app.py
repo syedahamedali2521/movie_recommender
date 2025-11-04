@@ -4,26 +4,17 @@ import os
 import sys
 
 # ==========================================================
-# 🚀 Universal Path Resolver (Works Locally + Streamlit Cloud)
+# ✅ Dynamic Path Fix (Works both on Codespaces & Streamlit Cloud)
 # ==========================================================
-# Get absolute path to project root (one level above 'app')
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 if project_root not in sys.path:
-    sys.path.insert(0, project_root)
+    sys.path.append(project_root)
 
-# Debug info (optional - shows actual structure)
-st.write("🔍 Project root path:", project_root)
-st.write("📂 Files in project root:", os.listdir(project_root))
-st.write("📂 Files in src:", os.listdir(os.path.join(project_root, 'src')) if os.path.exists(os.path.join(project_root, 'src')) else "src folder not found")
-
-# Try importing recommend_movie
 try:
     from src.recommend import recommend_movie
-    st.success("✅ Successfully imported recommend_movie from src.recommend")
-except Exception as e:
-    st.error(f"❌ Import error: {e}")
+except ModuleNotFoundError as e:
+    st.error("❌ Could not import 'src.recommend'. Make sure recommend.py exists in /src folder.")
     st.stop()
-
 
 # ==========================================================
 # ⚙️ Streamlit Page Configuration
